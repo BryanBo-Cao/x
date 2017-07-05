@@ -20,6 +20,7 @@ def dsigmoid(x):
     :return: derivative value (array like)
     """
     #TODO DONE dsigmoid function
+    # Question: how to deal with array-like shape?
     return sigmoid(x) * (1 - sigmoid(x))
 
 
@@ -160,14 +161,16 @@ class MLP:
 
             # shuffle data
             #TODO DONE shuffle data
-            np.random.shuffle(max_epochs)
+            np.random.shuffle(max_epochs[i])
 
             # iterate every batch
             for batch in xrange(0, n_samples, self.batch_size):
                 #TODO DONE call forward function
-                forward(batch)
                 #TODO DONE call backward function
-                backward(batch)
+                # NeedHelp
+                for x in xrange(batch):
+                    forward(x)
+                    backward(x)
 
             if i % self.verbose == 0:
                 # Compute Loss and Training Accuracy
@@ -190,7 +193,6 @@ class MLP:
         # TODO Calculating the loss
 
 
-
         # TODO Add regularization term to loss
 
 
@@ -201,10 +203,15 @@ class MLP:
         self.layers[0] = X
 
         # TODO hidden layers
-
+        # Done, NeedHelp
+        for i in xrange(hidden_layer_size):
+            for weight in self.weigts[i]:
+                z = self.layers[i] .* weight + self.bias[i] # Not Sure about how to process weight specifically with Matrix in Python
+                self.layers[i + 1] = self.activation_func(z)
 
         # TODO output layer (Note here the activation is using output_layer func)
-
+        # Done, NeedHelp
+        self.layers[-1] = output_layer(self.layers[-2])
 
         return self.layers[-1]
 
@@ -214,9 +221,21 @@ class MLP:
             # cross_entropy loss backprop
             self.deltas[-1][range(X.shape[0]), y] -= 1
 
+        # Done, NeedHelp
         # TODO update deltas
-
         # TODO update weights
+        # output layer delta
+        self.deltas[-1] = self.layers[-1] - y
+        # hidden layers deltas & weights
+        # each layer
+        for layer in layers[::-1]:
+            # each neuron
+            for i in layer:
+                dweight =
+                dweight += self.reg_lambda * self.weights[i]
+                self.weights[i] += self.lr * dweight
+
+
 
 
     def predict(self, X):
@@ -237,7 +256,9 @@ class MLP:
         n_samples = X.shape[0]
 
         # TODO compute accuracy
-
+        # NeedHelp
+        # Reference: https://www.cs.cornell.edu/courses/cs578/2003fa/performance_measures.pdf
+        acc = (y - X) / X
         return acc
 
 
@@ -263,7 +284,6 @@ def my_mlp():
 
     acc = network.score(X_test, y_test)
     print('Test Accuracy: {}'.format(acc))
-
 
 
 
