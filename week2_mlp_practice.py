@@ -10,6 +10,7 @@ def sigmoid(x):
     :param x: array-like shape(n_sample, n_feature)
     :return: simgoid value (array like)
     """
+    #TODO DONE sigmoid function
     return 1 / (1 + np.exp(-x))
 
 def dsigmoid(x):
@@ -18,6 +19,7 @@ def dsigmoid(x):
     :param x: array-like shape(n_sample, n_feature)
     :return: derivative value (array like)
     """
+    #TODO DONE dsigmoid function
     return sigmoid(x) * (1 - sigmoid(x))
 
 
@@ -27,6 +29,7 @@ def tanh(x):
     :param x: array-like shape(n_sample, n_feature)
     :return: tanh value (array like)
     """
+    #TODO DONE tanh function
     return (np.exp(x) - np.exp(-x)) / (np.exp(x) + np.exp(-x))
 
 
@@ -36,6 +39,7 @@ def dtanh(x):
     :param x: array-like shape(n_sample, n_feature)
     :return: derivative value (array like)
     """
+    #TODO DONE dtanh function
     return 1 - tanh(x) ** 2
 
 
@@ -45,8 +49,8 @@ def softmax(X):
     :param X:
     :return:
     """
-    #TODO softmax function
-
+    #TODO DONE softmax function
+    return np.exp(x) / np.sum(np.exp(x), axis = 0)
 
 class MLP:
     def __init__(self, input_size, output_size, hidden_layer_size=[100], batch_size=200, activation="sigmoid", output_layer='softmax', loss='cross_entropy', lr=0.01, reg_lambda=0.0001, momentum=0.9, verbose=10):
@@ -155,12 +159,15 @@ class MLP:
         for i in xrange(max_epochs):
 
             # shuffle data
-            #TODO shuffle data
+            #TODO DONE shuffle data
+            np.random.shuffle(max_epochs)
 
             # iterate every batch
             for batch in xrange(0, n_samples, self.batch_size):
-                #TODO call forward function
-                #TODO call backward function
+                #TODO DONE call forward function
+                forward(batch)
+                #TODO DONE call backward function
+                backward(batch)
 
             if i % self.verbose == 0:
                 # Compute Loss and Training Accuracy
