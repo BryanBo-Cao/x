@@ -20,4 +20,8 @@ if __name__ == "__main__":
     # testing
     train, val = get_mnist(100)
     print (train)
+    batch_t = train.next()
+    d = batch_t.data
+    l = batch_t.label
+    print (d)
     print (val)
