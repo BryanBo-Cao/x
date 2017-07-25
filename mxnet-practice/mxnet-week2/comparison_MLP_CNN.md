@@ -1,4 +1,5 @@
 ***MLP Acc(5 epoch) | CPU Epoch Time***
+```
 INFO:root:Epoch[0] Batch [100]	Speed: 43383.55 samples/sec	accuracy=0.837921
 INFO:root:Epoch[0] Batch [200]	Speed: 40515.16 samples/sec	accuracy=0.919700
 INFO:root:Epoch[0] Batch [300]	Speed: 38390.50 samples/sec	accuracy=0.938500
@@ -39,10 +40,11 @@ INFO:root:Epoch[4] Batch [500]	Speed: 31710.48 samples/sec	accuracy=0.988400
 INFO:root:Epoch[4] Train-accuracy=0.987677
 INFO:root:Epoch[4] Time cost=1.558
 INFO:root:Epoch[4] Validation-accuracy=0.977200
-
+```
 
 
 ***CNN Acc(5 epoch) | CPU Epoch Time***
+```
 INFO:root:Epoch[0] Batch [100]	Speed: 326.36 samples/sec	accuracy=0.762079
 INFO:root:Epoch[0] Batch [200]	Speed: 334.34 samples/sec	accuracy=0.806200
 INFO:root:Epoch[0] Batch [300]	Speed: 338.60 samples/sec	accuracy=0.828300
@@ -83,3 +85,4 @@ INFO:root:Epoch[4] Batch [500]	Speed: 336.34 samples/sec	accuracy=0.900300
 INFO:root:Epoch[4] Train-accuracy=0.895556
 INFO:root:Epoch[4] Time cost=177.423
 INFO:root:Epoch[4] Validation-accuracy=0.886200
+```
