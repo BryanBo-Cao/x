@@ -42,18 +42,37 @@ def get_mlp_sym():
     mlp = mx.sym.SoftmaxOutput(data=l, name='softmax')
     return mlp
 
-
-def conv_layer():
+# reference: https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner%27s-Guide-To-Understanding-Convolutional-Neural-Networks-Part-2/
+# reference: http://cs231n.github.io/convolutional-networks/
+def conv_layer(input_layer,
+                conv_num_filter = 64,
+                conv_kernel = (3, 3),
+                conv_stride = (1, 1),
+                pool_kernel = (2, 2),
+                pool_stride = (2, 2),
+                pool_type = 'max',
+                pad = (1, 1)):
     """
     :return: a single convolution layer symbol
     """
     # todo: Design the simplest convolution layer
-    # Find the doc of mx.sym.Convolution by help command
+    # Find the doc of mx.sym.Convolution by help command ## see 'help_command_note.md'
     # Do you need BatchNorm?
     # Do you need pooling?
     # What is the expected output shape?
+    l = mx.sym.Convolution(data = input_layer, num_filter = conv_num_filter, kernel = conv_kernel,
+                           stride = conv_stride, pad = pad)
 
-    pass
+    l = mx.sym.Activation(data = l, act_type = 'relu')
+    # l = mx.sym.Activation(data = l, act_type = 'sigmoid')
+    # l = mx.sym.Activation(data = l, act_type = 'softrelu')
+    # l = mx.sym.Activation(data = l, act_type = 'tanh')
+
+    l = mx.sym.BatchNorm(data = l)
+
+    l = mx.sym.Pooling(data = l, pool_type = pool_type, kernel = pool_kernel, stride = pool_stride)
+
+    return l
 
 
 # Optional
@@ -71,8 +90,19 @@ def get_conv_sym():
     :return: symbol of a convolutional neural network
     """
     data = mx.sym.Variable("data")
+
     # todo: design the CNN architecture
     # How deep the network do you want? like 4 or 5
     # How wide the network do you want? like 32/64/128 kernels per layer
     # How is the convolution like? Normal CNN? Inception Module? VGG like?
-    pass
+
+    l = conv_layer(input_layer = data, conv_num_filter = 64)
+    l = conv_layer(input_layer = l, conv_num_filter = 64)
+    l = conv_layer(input_layer = l, conv_num_filter = 64)
+    l = conv_layer(input_layer = l, conv_num_filter = 64)
+
+    l = mx.sym.flatten(data = l)
+    l = mlp_layer(input_layer = l, n_hidden = 128, activation = 'relu', BN = True)
+    l = mx.sym.FullyConnected(data = l, num_hidden = 10)
+    l = mx.sym.SoftmaxOutput(data = l, name = 'softmax')
+    return l
