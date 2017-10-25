@@ -1,3 +1,5 @@
+*Environment Python2.7*
+
 #To use#
 
 get_data(): return the matrix images with shape of (50, 32, 32, 3), which is 50 images, each image has a dimension of 32x32, and 3 channels of RGB values.
