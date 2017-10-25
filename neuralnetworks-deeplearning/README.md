@@ -1,7 +1,9 @@
 #To use#
 
 get_data(): return the matrix images with shape of (50, 32, 32, 3), which is 50 images, each image has a dimension of 32x32, and 3 channels of RGB values.
+
 get_labels(): return the matrix of labels with shape of (50, 10), which is 50 labels, each label is a vector with 10 length.
+
 show_image(part3_data, i): show the image with index i
 
 #Code Demo#
